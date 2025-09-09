@@ -64,7 +64,8 @@
 		$school_bell_hour = (int)check_str($_POST["school_bell_hour"]);
 		$school_bell_dom = (int)check_str($_POST["school_bell_dom"]);
 		$school_bell_mon = (int)check_str($_POST["school_bell_mon"]);
-		$school_bell_dow = (int)check_str($_POST["school_bell_dow"]);
+		$arr_school_bell_dow = $_POST["school_bell_dow"];
+		$school_bell_dow = array_sum($arr_school_bell_dow);
 		$school_bell_timezone = check_str($_POST["school_bell_timezone"]);
 		$school_bell_enabled = check_str($_POST["school_bell_enabled"]);
 		$school_bell_description = $_POST["school_bell_description"];
@@ -99,7 +100,7 @@
 			$school_bell_mon = 1;
 		}
 
-		if ($school_bell_dow != -1 && ($school_bell_dow < 0 || $school_bell_dow > 6)) {
+		if ($school_bell_dow != -1 && ($school_bell_dow < 0 || $school_bell_dow > 127)) {
 			$school_bell_dow = 0;
 		}
 
@@ -493,7 +494,7 @@
 	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
 	echo "	".$text['label-school_bell_dow']."\n";
 	echo "</td>\n";
-	echo "<td class='vtable' align='left'>\n";
+	echo "<td class='vtable' height='200' align='left'>\n";
 	echo $school_bell_selector->draw_dow('school_bell_dow', $school_bell_dow);
 	echo "<br />\n";
 	echo $text['description-school_bell_dow']."\n";

@@ -39,24 +39,24 @@ class school_bell_selector {
         if ($time12h) {
             $this->dow = array(
                 -1  => '*',
-                0   => 'Sunday',
+                64   => 'Sunday',
                 1   => 'Monday',
                 2   => 'Tuesday',
-                3   => 'Wednesday',
-                4   => 'Thursday',
-                5   => 'Friday',
-                6   => 'Saturday'
+                4   => 'Wednesday',
+                8   => 'Thursday',
+                16   => 'Friday',
+                32   => 'Saturday',
             );
         } else {
             $this->dow = array(
                 -1  => '*',
                 1   => 'Monday',
                 2   => 'Tuesday',
-                3   => 'Wednesday',
-                4   => 'Thursday',
-                5   => 'Friday',
-                6   => 'Saturday',
-                0   => 'Sunday'
+                4   => 'Wednesday',
+                8   => 'Thursday',
+                16   => 'Friday',
+                32   => 'Saturday',
+                64   => 'Sunday'
             );
         }
 
@@ -86,11 +86,29 @@ class school_bell_selector {
         return "<option value='" . $option_item . "'>" . $draw_item . "</option>\n";
     }
 
+    private function _option_string_multiple($option_item, $draw_item, $selected_items) {
+
+        if ($option_item & $selected_items) {
+            return "<option selected value='" . $option_item . "'>" . $draw_item . "</option>\n";
+        }
+        return "<option value='" . $option_item . "'>" . $draw_item . "</option>\n";
+    }
+
     private function _draw_selected($selector_name ,$range_array, $selected) {
         $selector_text = "<select name = '$selector_name' id = '$selector_name' class='formfld'>\n";
 
         foreach ($range_array as $option_item => $draw_item) {
             $selector_text .= $this->_option_string($option_item, $draw_item, $selected);
+        }
+        $selector_text .= "</select>";
+        return $selector_text;
+    }
+
+    private function _draw_selected_multiple($selector_name ,$range_array, $selected) {
+        $selector_text = '<select name = \''.$selector_name.'[]\' id = \''.$selector_name.'[]\' multiple>\n';
+
+        foreach ($range_array as $option_item => $draw_item) {
+            $selector_text .= $this->_option_string_multiple($option_item, $draw_item, $selected);
         }
         $selector_text .= "</select>";
         return $selector_text;
@@ -113,7 +131,7 @@ class school_bell_selector {
     }
 
     public function draw_dow($name, $selected = '') {
-        return $this->_draw_selected($name, $this->dow, $selected);
+        return $this->_draw_selected_multiple($name, $this->dow, $selected);
     }
 }
 ?>
