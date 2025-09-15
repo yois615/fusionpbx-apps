@@ -36,10 +36,12 @@
 	$sql .= " school_bell_dom as dom,";
 	$sql .= " school_bell_mon as mon,";
 	$sql .= " school_bell_dow as dow,";
-	$sql .= " school_bell_timezone as timezone ";
+	$sql .= " school_bell_timezone as timezone,";
+	$sql .= " school_bell_enabled as enabled ";
 	$sql .= "FROM v_school_bells ";
 	$sql .= "JOIN v_domains ON v_domains.domain_uuid = v_school_bells.domain_uuid ";
-	$sql .= " WHERE school_bell_min = :current_minute";
+	$sql .= "WHERE school_bell_enabled = 'true'";
+	$sql .= " AND school_bell_min = :current_minute";
 	$sql .= " OR school_bell_min = -1";
 	$parameters['current_minute'] = $current_minute;
 	$database = new database;
