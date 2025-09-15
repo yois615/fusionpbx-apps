@@ -90,7 +90,7 @@
 		$school_bell_hour = (int)$school_bell['hour'];
 		$current_hour = (int)date('G', $current_timestamp);
 
-		if ((int)$current_hour != (int)$school_bell_hour) { // Hour is not matched
+		if ($school_bell_hour != -1 && (int)$current_hour != (int)$school_bell_hour) { // Hour is not matched
 			if ($debug) {
 				echo "Hour is not matched current {$current_hour} != bell {$school_bell_hour}\n";
 			}
