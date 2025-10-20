@@ -41,8 +41,7 @@
 	$sql .= "FROM v_school_bells ";
 	$sql .= "JOIN v_domains ON v_domains.domain_uuid = v_school_bells.domain_uuid ";
 	$sql .= "WHERE school_bell_enabled = 'true'";
-	$sql .= " AND school_bell_min = :current_minute";
-	$sql .= " OR school_bell_min = -1";
+	$sql .= " AND (school_bell_min = :current_minute OR school_bell_min = -1)";
 	$parameters['current_minute'] = $current_minute;
 	$database = new database;
 	$school_bells = $database->select($sql, $parameters, 'all');
