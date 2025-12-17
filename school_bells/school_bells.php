@@ -79,6 +79,8 @@ require_once "resources/paging.php";
 		$sql .= " WHERE domain_uuid = :domain_uuid";
 		if (strlen($order_by)> 0) {
 			$sql .= " ORDER BY $order_by $order";
+		} else {
+			$sql .= " ORDER BY school_bell_dow desc, school_bell_hour asc, school_bell_min asc";
 		}
 		$sql .= " LIMIT $rows_per_page OFFSET $offset";
 
@@ -137,7 +139,33 @@ require_once "resources/paging.php";
 			$school_bell_schedule_time .= ($row['school_bell_hour'] == -1) ? '* ': $row['school_bell_hour'] . " ";
 			$school_bell_schedule_time .= ($row['school_bell_dom'] == -1) ? '* ': $row['school_bell_dom'] . " ";
 			$school_bell_schedule_time .= ($row['school_bell_mon'] == -1) ? '* ': $row['school_bell_mon'] . " ";
-			$school_bell_schedule_time .= ($row['school_bell_dow'] == -1) ? '* ': $row['school_bell_dow'] . " ";
+
+			if ($row['school_bell_dow'] == 127) {
+				$school_bell_dow = "*";
+			} else {
+				$days = [
+					64   => 'Su',
+					1   => 'M',
+					2   => 'Tu',
+					4   => 'W',
+					8  => 'Th',
+					16  => 'F',
+					32  => 'Sa'
+				];
+				
+				$selectedDays = [];
+
+				foreach ($days as $bitness => $name) {
+					// Use the bitwise AND operator to check if the bit for the current day is set
+					if (($row['school_bell_dow'] & $bitness) == $bitness) {
+						$selectedDays[] = $name;
+					}
+				}
+				
+				$school_bell_dow = implode(', ', $selectedDays);
+			}
+
+			$school_bell_schedule_time .= $school_bell_dow . " ";
 			echo "	<td valign='top' class='".$row_style[$c]."'>".$school_bell_schedule_time."&nbsp;</td>\n";
 
 			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['school_bell_enabled']."&nbsp;</td>\n";

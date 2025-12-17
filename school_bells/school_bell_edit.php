@@ -101,7 +101,7 @@
 		}
 
 		if ($school_bell_dow != -1 && ($school_bell_dow < 0 || $school_bell_dow > 127)) {
-			$school_bell_dow = 0;
+			$school_bell_dow = 127;
 		}
 
 		if (!in_array($school_bell_timezone, $timezone_identifiers_list)) {

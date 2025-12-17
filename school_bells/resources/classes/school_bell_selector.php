@@ -38,7 +38,7 @@ class school_bell_selector {
         # Fill dow
         if ($time12h) {
             $this->dow = array(
-                -1  => '*',
+                127  => '*',
                 64   => 'Sunday',
                 1   => 'Monday',
                 2   => 'Tuesday',
@@ -49,7 +49,7 @@ class school_bell_selector {
             );
         } else {
             $this->dow = array(
-                -1  => '*',
+                127  => '*',
                 1   => 'Monday',
                 2   => 'Tuesday',
                 4   => 'Wednesday',
@@ -88,7 +88,7 @@ class school_bell_selector {
 
     private function _option_string_multiple($option_item, $draw_item, $selected_items) {
 
-        if ($option_item & $selected_items) {
+        if (($option_item & $selected_items) == $option_item) {
             return "<option selected value='" . $option_item . "'>" . $draw_item . "</option>\n";
         }
         return "<option value='" . $option_item . "'>" . $draw_item . "</option>\n";
