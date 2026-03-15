@@ -117,7 +117,7 @@
 		}
 
 		$school_bell_dow = (int)$school_bell['dow'];
-		$current_dow = (int)date('N', $current_timestamp);
+		$current_dow = 1 << (date('N', $current_timestamp) - 1);
 
 		if ($school_bell_dow != -1 && (int)$current_dow & (int)$school_bell_dow == 0) { // Day of the week is not matched
 			if ($debug) {
