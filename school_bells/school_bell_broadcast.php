@@ -84,17 +84,33 @@
 			exit;
 
 	}
-	elseif ($action == 'play') {		
+	elseif ($action == 'play') {	
+		
 		$target_extensions = $_POST['target_extensions'];
 		$playback_file = $_SESSION['switch']['recordings']['dir'] . '/' . $_SESSION['domain_name'] . '/' . $_POST['playback_file'];
 
+		if (!is_array($target_extensions)) { $msg .= $text['message-required']."Target extensions<br>\n"; }
+		if (!file_exists($playback_file)) { $msg .= $text['message-required']."Valid playback file<br>\n"; }
+		
+		if (!empty($msg) && empty($_POST["persistformvar"])) {
+			require_once "resources/header.php";
+			require_once "resources/persist_form_var.php";
+			echo "<div align='center'>\n";
+			echo "<table><tr><td>\n";
+			echo $msg."<br />";
+			echo "</td></tr></table>\n";
+			persistformvar($_POST);
+			echo "</div>\n";
+			require_once "resources/footer.php";
+			return;
+		}
+		
 		$event_socket = event_socket::create();
 		
 		//Parse out the target extensions
-		if (is_array($target_extensions)) {
-			foreach($target_extensions as $ext)
-				$destinations[] = event_socket::command("api user_data ".$ext."@".$domain_name." attr id");
-		}
+		foreach($target_extensions as $ext)
+			$destinations[] = event_socket::command("api user_data ".$ext."@".$domain_name." attr id");
+		
 
 		//originate the intercoms to the call
 		foreach($destinations as $ext) {

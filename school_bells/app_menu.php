@@ -16,4 +16,20 @@ $apps[$x]['menu'][0]['path'] = "/app/school_bells/school_bells.php";
 $apps[$x]['menu'][0]['groups'][] = "superadmin";
 $apps[$x]['menu'][0]['groups'][] = "admin";
 
+$apps[$x]['menu'][1]['title']['en-us'] = "School Bell Broadcast";
+$apps[$x]['menu'][1]['title']['pt-br'] = "";
+$apps[$x]['menu'][1]['title']['es-cl'] = "";
+$apps[$x]['menu'][1]['title']['fr-fr'] = "";
+$apps[$x]['menu'][1]['title']['fr-ca'] = "";
+$apps[$x]['menu'][1]['title']['pl'] = "";
+$apps[$x]['menu'][1]['title']['sv-se'] = "";
+$apps[$x]['menu'][1]['title']['uk'] = "";
+$apps[$x]['menu'][1]['title']['de-at'] = "";
+$apps[$x]['menu'][1]['uuid'] = "7587def1-de36-4073-b046-261376022c73";
+$apps[$x]['menu'][1]['parent_uuid'] = "fd29e39c-c936-f5fc-8e2b-611681b266b5";
+$apps[$x]['menu'][1]['category'] = "internal";
+$apps[$x]['menu'][1]['path'] = "/app/school_bells/school_bell_broadcast.php";
+$apps[$x]['menu'][1]['groups'][] = "superadmin";
+$apps[$x]['menu'][1]['groups'][] = "admin";
+
 ?>
