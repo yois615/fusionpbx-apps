@@ -160,8 +160,9 @@
     $esl = event_socket::create();
 	if ($esl->is_connected()) {
 		foreach($rows as $row){
-            $cmd = "api conference ".$row['conference_name']."@".$domain_name." list count";
-		    $response = event_socket::command($cmd);
+            $cmd = "conference ".$row['conference_name']."@".$domain_name." list count";
+		    // This always returns -ERR not found but it is in fs_cli
+			$response = event_socket::api($cmd);
             if (substr($response, 0, 1) == '-') {
                 $sql = "DELETE FROM v_school_bell_active WHERE conference_name = :conference_name";
                 $params['conference_name'] = $row['conference_name'];
