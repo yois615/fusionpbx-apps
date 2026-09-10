@@ -80,7 +80,7 @@ require_once "resources/paging.php";
 		if (strlen($order_by)> 0) {
 			$sql .= " ORDER BY $order_by $order";
 		} else {
-			$sql .= " ORDER BY school_bell_dow desc, school_bell_hour asc, school_bell_min asc";
+			$sql .= " ORDER BY school_bell_name asc, school_bell_dow desc, school_bell_hour asc, school_bell_min asc";
 		}
 		$sql .= " LIMIT $rows_per_page OFFSET $offset";
 

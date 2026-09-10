@@ -119,7 +119,7 @@
 		$school_bell_dow = (int)$school_bell['dow'];
 		$current_dow = 1 << (date('N', $current_timestamp) - 1);
 
-		if ($school_bell_dow != -1 && (int)$current_dow & (int)$school_bell_dow == 0) { // Day of the week is not matched
+		if ($school_bell_dow != -1 && ((int)$current_dow & (int)$school_bell_dow) == 0) { // Day of the week is not matched
 			if ($debug) {
 				echo "Day of the week is not matched current {$current_dow} != bell {$school_bell_dow}\n";
 			}
